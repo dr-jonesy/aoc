@@ -6,7 +6,7 @@ Advent of Code in Rust, with some light explainations of interesting things.
 ### Prerequisites
 
 This project is written in Rust, so if you'd like to run these snippets it
-would be worth while to that installed.
+would be worth while to have that installed.
 
 On Unix:
 
@@ -17,7 +17,7 @@ curl https://sh.rustup.rs -sSf | sh
 Of course, you shouldn't trust installers from the internet without reading
 what it is they do first, and should nver pipe curl directly into bash, etc.
 
-### Installing
+### Installing and Running
 
 Installing is as simple as cloning this repo...
 
@@ -31,7 +31,9 @@ git clone https://github.com/dr-jonesy/aoc
 cd aoc/day1
 ```
 
-...and running the code
+...and running the code. Each 'day' directory should have all the 
+requisite files in the top level (aoc/day1/input.txt for example).
+
 
 ```sh
 cargo run
