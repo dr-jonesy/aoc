@@ -42,3 +42,14 @@ cargo run
 ### Day 1
 
 #### Part One: Frequency Finder
+
+This is on the face of it a simple little problem, almost more of a code kata
+than anything else. It breaks down into three sections: taking input,
+parsing that input for further use, and then doing something with that parsed
+data.
+
+One thing I learned here is how to do string indexing in Rust.
+
+#### Part Two: Repeat as Needed
+
+

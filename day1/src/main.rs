@@ -19,7 +19,7 @@ fn find_freq(cord: Vec<&str>) -> i32 {
 
 
 fn main() ->std::io::Result<()> {
-    let filename = "/home/hguant/projects/aoc/input.txt";
+    let filename = "input";
     let mut f = File::open(filename)?;
     let mut contents = String::new();
     f.read_to_string(&mut contents)?;
