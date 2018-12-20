@@ -43,9 +43,9 @@ On Windows:
 
 You're on your own.
 
-### Day 1
+## Day 1
 
-#### Part One: Frequency Finder
+### Part One: Frequency Finder
 
 This is on the face of it a simple little problem, almost more of a code kata
 than anything else. It breaks down into three sections: taking input,
@@ -54,7 +54,7 @@ data.
 
 One thing I learned here is how to do string indexing in Rust.
 
-#### Part Two: Repeat as Needed
+### Part Two: Repeat as Needed
 
 The Problem: Iterate through all the frequency changes, and find the first
 instance when the frequency is repeated.
@@ -94,4 +94,52 @@ Think of this like looking through an apartment building to see if your friend
 is home. You can go knock on each door one by one, checking if your friend is
 there, or you can go directly to his door, and knock once. 
 
-### Day 2
+## Day 2
+
+### Part 2
+
+Problem: Given a list of random-ish strings, go through all of them and keep
+two counts - one of all strings that have exactly 2 of any letter, and one of
+all strings that have exactly 3 of any letter, then multiply those two values
+together. 
+
+Similarly to the last day's part 2, this problem becomes much easier with
+hashes, though we use a HashMap here instead of a HashSet. The difference
+between the two is pretty simple - with a set, the key and the value are the
+same. A HashMap is a tuple `(key, value)`. Here, the key is going to be each
+letter in the string, and the value will be the count of each time the letter
+can be found in the string. 
+
+At first I was a bit stumped about how to handle this - I knew I needed a
+HashMap, and I knew it needed a count, but handling empty keys vs adding one to
+the value of a key either gave me errors, or was ugly. Fortunately, the
+`HashMap` struct implements the `Entry` API, which gives us the lovely
+`or_insert()` method. `Entry` is an `enum` that wraps around `<key, value>` and keeps track of if an entry in a
+map is `Vacant` or `Occupied`. `or_insert` returns a mutable reference to the
+value at the key if it's `Occupied`, or the default value you specifed if the
+entry is `Occupied`. 
+
+The relevant section of the solution:
+
+```rust
+for i in data{
+// set up  some variables
+    let char_counter = HashMap::new();
+    for ch in i.chars(){
+        let counter = char_counter.entry(ch).or_insert(0);
+        *counter +=1;
+    }
+// ...check the counter values and increment storage variables as needed
+}
+```
+
+So, for every entry in data, we create an empty HashMap, then iterate over every
+`char` in the entry. If the `char` is already in `char_counter`, we return a
+reference to the value; if it's empty, we return 0. Finally, we add one to the
+counter value. Once we've done that for every `char` in the entry, we check if
+it satisfies our 2 or 3 instances condition, and then update our main counter
+variables accordingly. 
+
+One thing I'd like to change out this code is the way I check doubles and
+triples per each string - it's just two if statements, which is...fine, but I
+think it could be better done using a match. 
