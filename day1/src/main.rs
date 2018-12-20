@@ -1,33 +1,38 @@
 use std::fs::File;
 use std::io::Read;
-
-fn find_freq(cord: Vec<&str>) -> i32 {
-    let mut total = 0;
-
-    for i in cord{
-        let op = &i[..1];
-        let num: i32 = i[1..].parse::<i32>().unwrap();
-        if op == "+"{
-            total += num;
-        } else {
-            total -= num;
-        }
-    }
-    
-    total
-}
-
+use std::collections::HashSet;
 
 fn main() ->std::io::Result<()> {
-    let filename = "input";
-    let mut f = File::open(filename)?;
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)?;
-    contents.pop();
-    
-    let cord: Vec<&str> = contents.split("\n").collect();
-    
-    let answer = find_freq(cord);
-    println!("{}", answer);
+    let mut tot_set = HashSet::new();
+    tot_set.insert(0);
+    let mut total =  0;
+    loop {
+        
+        let filename = "input";
+        let mut f = File::open(filename)?;
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)?;
+        contents.pop();
+
+        let cord: Vec<&str> = contents.split("\n").collect();
+        
+        for i in cord {
+            let operator = &i[..1];
+            let num: i32 = i[1..].parse::<i32>().expect("error parsing num");
+            if operator == "+" {
+                total += num;
+            } else {
+                total -= num;
+            }
+            if !tot_set.contains(&total){
+                tot_set.insert(total.clone());
+            } else {
+                println!("{}", total);
+                return Ok(())
+
+            }   
+        }
+    }
+
     Ok(())
 }
